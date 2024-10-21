@@ -47,7 +47,16 @@ function createServer() {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
 
-        fs.writeFileSync(dataPath, JSON.stringify(data));
+        const writeStream = fs.createWriteStream(dataPath);
+
+        writeStream.write(JSON.stringify(data), (error) => {
+          if (error) {
+            res.statusCode = 500;
+            res.end('Error saving data');
+          }
+        });
+
+        writeStream.end();
         fs.createReadStream(dataPath).pipe(res);
       });
 
