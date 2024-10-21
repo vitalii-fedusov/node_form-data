@@ -64,7 +64,7 @@ function createServer() {
     }
 
     res.statusCode = 404;
-    res.end('invalid url');
+    res.end('invalid url.');
   });
 
   return server;
