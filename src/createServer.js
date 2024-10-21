@@ -56,8 +56,10 @@ function createServer() {
           }
         });
 
+        writeStream.on('finish', () => {
+          fs.createReadStream(dataPath).pipe(res);
+        });
         writeStream.end();
-        fs.createReadStream(dataPath).pipe(res);
       });
 
       return;
